@@ -7,10 +7,9 @@ describe Plane do
 	  it { should_not be_nil }
 	  its(:fuel) { should eq 0 }
 	  its(:passengers) { should be_nil }
-	  its(:crew) { should be_nil }
+	  its(:crew) { should eq [] }
 	  its(:type) { should eq "787" }
 	end
-	
 
 	describe "navigation controls" do
 		it "flies" do
@@ -27,8 +26,21 @@ describe Plane do
 			plane_787.refuel
 			expect(plane_787.fuel).to eq 100
 		end
+		context "#altitude" do
+		  it "returns altitude of 14000ft during flight" do
+				plane_787.take_off
+				expect(plane_787.altitude).to eq 14000
+		  end
 
-		it "returns altitude during flight"
+		  it "returns altitude of 0 while on the ground before take off" do
+				expect(plane_787.altitude).to eq 0
+		  end
+
+		  it "returns altitude of 0 after landing" do
+				plane_787.land
+				expect(plane_787.altitude).to eq 0
+		  end
+		end
 		it "returns speed"
 
 	end
@@ -46,8 +58,19 @@ describe Plane do
 	end
 
 	describe "crew info" do
-	  it "should return a list of people with their roles"
-	  it "knows if it has the right crew members to fly"
+		before(:each) do
+			tom = double("Crew", name: "Tom", role: "Pilot")
+			jane = double("Crew", name: "Jane", role: "Co-Pilot")
+			plane_787.crew << { name: tom.name, role: tom.role }
+			plane_787.crew << { name: jane.name, role: jane.role }
+		end
+	  it "should return a list of people with their roles" do
+			expect(plane_787.crew).to eq [{name: "Tom", role: "Pilot"},
+																		{name: "Jane", role: "Co-Pilot"}]
+	  end
+	  it "knows if it has the right crew members to fly" do
+			expect(plane_787.crew_requirement?).to be true
+	  end
 	  it "tells who is missing to make flight"
 	end
 
