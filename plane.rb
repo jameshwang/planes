@@ -1,7 +1,8 @@
 class Plane
-	attr_reader :fuel
+	attr_reader :fuel, :crew, :passengers, :type
 	def initialize
-		self.fuel = 0
+		@fuel = 0
+		@type = "787"
 	end
 
 	def fly
@@ -13,7 +14,7 @@ class Plane
 	end
 
 	def refuel
-		self.fuel = 100
+		@fuel = 100
 	end
 
 	private
