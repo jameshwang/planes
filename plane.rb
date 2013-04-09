@@ -43,7 +43,7 @@ class Plane
 	end
 
 	def roles
-		crew.map{|m| m[:role].downcase.gsub(/-/, '_') }
+		crew.map{|m| m[:role].downcase.gsub(/(-| )/, '_') }
 	end
 
 	def missing_crew_roles

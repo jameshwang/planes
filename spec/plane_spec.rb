@@ -1,7 +1,7 @@
 require_relative('../plane')
 
 describe Plane do
-	subject(:plane_787) { Plane.new("787", { pilot: 1, co_pilot: 1 }) }
+	subject(:plane_787) { Plane.new("787", { pilot: 1, co_pilot: 1, flight_attendent: 5 }) }
 
 	describe "initalized state" do
 	  it { should_not be_nil }
@@ -81,6 +81,9 @@ describe Plane do
 			end
 
 			it "#crew_requirement? knows if it has the right crew members to fly" do
+				@flight_attendent = double("Crew", name: "FA1", role: "Flight Attendent")
+				@flight_attendent.stub(:to_h).and_return({ name: @flight_attendent.name, role: @flight_attendent.role })
+				5.times { |a| plane_787.add_crew @flight_attendent }
 				expect(plane_787.crew_requirement?).to be true
 			end
 		end
@@ -91,7 +94,7 @@ describe Plane do
 
 
 	  it "#missing_crew_roles tells who is missing to make flight" do
-	  	expect(plane_787.missing_crew_roles).to eq({ pilot: 1, co_pilot: 1 })
+	  	expect(plane_787.missing_crew_roles).to eq({ pilot: 1, co_pilot: 1, flight_attendent: 5 })
 	  end
 	end
 
