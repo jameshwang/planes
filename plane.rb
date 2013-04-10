@@ -9,13 +9,8 @@ class Plane
     @crew_requirements = crew_requirements || {}
   end
 
-  def fly
-    "flying"
-  end
-
   def take_off
     @altitude = 14000
-    "taking off"
   end
 
   def land

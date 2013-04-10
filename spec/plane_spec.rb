@@ -12,13 +12,9 @@ describe Plane do
   end
 
   describe "navigation controls" do
-    it "flies" do
-      expect(plane_787.fly).to eq "flying"
-    end
+    it "flies"
 
-    it "takes off" do
-      expect(plane_787.take_off).to eq "taking off"
-    end
+    it "takes off"
   end
 
   describe "dashboard gauges" do
